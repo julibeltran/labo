@@ -5,7 +5,7 @@ require("data.table")
 require("rpart")
 require("parallel")
 
-ksemillas  <- c(102191, 200177, 410551, 552581, 892237) #reemplazar por las propias semillas
+ksemillas  <- c(14293, 23, 5, 1993, 739) #reemplazar por las propias semillas
 
 #------------------------------------------------------------------------------
 #particionar agrega una columna llamada fold a un dataset que consiste en una particion estratificada segun agrupa
@@ -56,33 +56,43 @@ ArbolEstimarGanancia  <- function( semilla, param_basicos )
 #------------------------------------------------------------------------------
 
 #Aqui se debe poner la carpeta de la computadora local
-setwd("D:\\gdrive\\Austral2022R\\")   #Establezco el Working Directory
+# setwd("D:\\gdrive\\Austral2022R\\")   #Establezco el Working Directory
+setwd("C:\\Users\\Julieta\\OneDrive\\MCD\\segundo_año\\Laboratorio_de_Implementacion_I")  #Establezco el Working Directory
+
+
 #cargo los datos
 
 dataset  <- fread("./datasets/paquete_premium_202011.csv")
 
-param_basicos  <- list( "cp"=         0,  #complejidad minima
-                        "minsplit"=  10,  #minima cantidad de registros en un nodo para hacer el split
-                        "minbucket"=  2,  #minima cantidad de registros en una hoja
-                        "maxdepth"=  10 ) #profundidad máxima del arbol
-
-#Un solo llamado, con la semilla 17
-ArbolEstimarGanancia( 17, param_basicos )   
-
-
-#la funcion mcmapply  llama a la funcion ArbolEstimarGanancia  tantas veces como valores tenga el vector  ksemillas
-ganancias  <- mcmapply( ArbolEstimarGanancia, 
-                        ksemillas,   #paso el vector de semillas, que debe ser el primer parametro de la funcion ArbolEstimarGanancia
-                        MoreArgs= list( param_basicos),  #aqui paso el segundo parametro
-                        SIMPLIFY= FALSE,
-                        mc.cores= 1 )  #se puede subir a 5 si posee Linux o Mac OS
-
-#muestro la lista de las ganancias en testing para la particion realizada con cada semilla
-ganancias
-
-#paso la lista a vector
-unlist(ganancias)
-
-#finalmente calculo la media (promedio)  de las ganancias
-mean( unlist(ganancias) )
-
+for (vmin_split in c(10,20,50,100,200,400,800)) 
+  {
+  for (vmax_depth in c(3,4,5,6,7,8,9,10,11,12,13,14,15)) {
+    
+    param_basicos  <- list( "cp"=         0,  #complejidad minima
+                            "minsplit"=  vmin_split,  #minima cantidad de registros en un nodo para hacer el split
+                            "minbucket"=  2,  #minima cantidad de registros en una hoja
+                            "maxdepth"=  vmax_depth ) #profundidad máxima del arbol
+    
+    #Un solo llamado, con la semilla 17
+    ArbolEstimarGanancia( 17, param_basicos )   
+    
+    
+    #la funcion mcmapply  llama a la funcion ArbolEstimarGanancia  tantas veces como valores tenga el vector  ksemillas
+    ganancias  <- mcmapply( ArbolEstimarGanancia, 
+                            ksemillas,   #paso el vector de semillas, que debe ser el primer parametro de la funcion ArbolEstimarGanancia
+                            MoreArgs= list( param_basicos),  #aqui paso el segundo parametro
+                            SIMPLIFY= FALSE,
+                            mc.cores= 1 )  #se puede subir a 5 si posee Linux o Mac OS
+    
+    #muestro la lista de las ganancias en testing para la particion realizada con cada semilla
+    ganancias
+    
+    #paso la lista a vector
+    unlist(ganancias)
+    
+    #finalmente calculo la media (promedio)  de las ganancias
+    ganancia_promedio <- mean( unlist(ganancias) )
+    
+    cat("vmax_depth", vmax_depth, "vmin_split", vmin_split, ganancia_promedio, "\n")
+  }
+}

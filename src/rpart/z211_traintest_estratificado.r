@@ -3,7 +3,8 @@ gc()   #Garbage Collection
 
 require("data.table")
 require("rpart")
-
+require("rpart.plot")
+require("dplyr")
 #------------------------------------------------------------------------------
 #particionar agrega una columna llamada fold a un dataset que consiste en una particion estratificada segun agrupa
 # particionar( data=dataset, division=c(70,30), agrupa=clase_ternaria, seed=semilla)   crea una particion 70, 30 
@@ -20,13 +21,17 @@ particionar  <- function( data,  division, agrupa="",  campo="fold", start=1, se
 #------------------------------------------------------------------------------
 
 #Aqui se debe poner la carpeta de la computadora local
-setwd("D:\\gdrive\\Austral2022R\\")   #Establezco el Working Directory
+
+#setwd("D:\\gdrive\\Austral2022R\\")   #Establezco el Working Directory
+setwd("C:\\Users\\Julieta\\OneDrive\\MCD\\segundo_año\\Laboratorio_de_Implementacion_I")  #Establezco el Working Directory
+
 #cargo los datos
 
 dataset  <- fread("./datasets/paquete_premium_202011.csv")
+dataset <- dataset %>% dplyr::select(- "ctrx_quarter")
 
 #particiono estratificadamente el dataset
-particionar( dataset, division=c(70,30), agrupa="clase_ternaria", seed= 102191 )  #Cambiar por la primer semilla de cada uno !
+particionar( dataset, division=c(70,30), agrupa="clase_ternaria", seed= 23 )  #Cambiar por la primer semilla de cada uno !
 
 param_basicos  <- list( "cp"=         0,  #complejidad minima
                         "minsplit"=  10,  #minima cantidad de registros en un nodo para hacer el split
@@ -62,3 +67,11 @@ ganancia_test_normalizada  <-  ganancia_test / 0.3
 
 cat( ganancia_test_normalizada )
 
+#aqui es donde voy a graficar los arboles
+pdf( "./labo/exp/arbolitos.pdf", paper="a4r" )
+
+#grafico el arbol
+prp(modelo, extra=101, digits=5, branch=1, type=4, varlen=0, faclen=0)
+
+
+dev.off()  #dejo de imprimir

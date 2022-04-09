@@ -9,7 +9,7 @@ require("rpart")
 require("rpart.plot")
 
 #Aqui se debe poner la carpeta de la computadora local
-setwd("D:\\gdrive\\Austral2022R\\")  #Establezco el Working Directory
+setwd("C:/Users/Julieta/OneDrive/MCD/segundo_año/Laboratorio_de_Implementacion_I")  #Establezco el Working Directory
 
 #cargo los datos donde entreno
 dtrain  <- fread("./datasets/paquete_premium_202011.csv")
@@ -29,7 +29,7 @@ param_buenos  <- list( "cp"=         -1,
 num_trees         <-  20    #voy a generar 20 arboles, a mas arboles mas tiempo de proceso y MEJOR MODELO
 feature_fraction  <-   0.5  #entreno cada arbol con solo 50% de las variables variables
 
-set.seed(102191) #Establezco la semilla aleatoria, cambiar por SU primer semilla
+set.seed(14293) #Establezco la semilla aleatoria, cambiar por SU primer semilla
 
 #inicializo en CERO el vector de las probabilidades en dapply
 #Aqui es donde voy acumulando, sumando, las probabilidades

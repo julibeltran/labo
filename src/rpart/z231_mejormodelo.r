@@ -9,7 +9,7 @@ require("data.table")
 require("rpart")
 require("parallel")
 
-ksemillas  <- c( 102191, 200177, 410551, 552581, 892237 ) #reemplazar por las propias semillas
+ksemillas  <- c(14293, 23, 5, 1993, 739) #reemplazar por las propias semillas
 
 #------------------------------------------------------------------------------
 #particionar agrega una columna llamada fold a un dataset que consiste en una particion estratificada segun agrupa
@@ -73,7 +73,9 @@ ArbolesMontecarlo  <- function( semillas,  param_basicos )
 #------------------------------------------------------------------------------
 
 #Aqui se debe poner la carpeta de la computadora local
-setwd("D:\\gdrive\\Austral2022R\\")   #Establezco el Working Directory
+#setwd("D:\\gdrive\\Austral2022R\\")   #Establezco el Working Directory
+setwd("C:\\Users\\Julieta\\OneDrive\\MCD\\segundo_año\\Laboratorio_de_Implementacion_I")  #Establezco el Working Directory
+
 #cargo los datos
 
 dataset  <- fread("./datasets/paquete_premium_202011.csv")
@@ -101,5 +103,3 @@ ganC  <- ArbolesMontecarlo( ksemillas, paramC )
 
 #imprimo la media de las ganancias
 cat( mean(ganA), mean(ganB), mean(ganC) )
-
-
