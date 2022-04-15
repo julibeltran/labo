@@ -8,7 +8,8 @@ require("data.table")
 require("lightgbm")
 
 #Aqui se debe poner la carpeta de la computadora local
-setwd("D:\\gdrive\\Austral2022R\\")   #Establezco el Working Directory
+#setwd("D:\\gdrive\\Austral2022R\\")   #Establezco el Working Directory
+setwd("C:\\Users\\Julieta\\OneDrive\\MCD\\segundo_año\\Laboratorio_de_Implementacion_I")   #Establezco el Working Directory
 
 #cargo el dataset donde voy a entrenar
 dataset  <- fread("./datasets/paquete_premium_202011.csv", stringsAsFactors= TRUE)
@@ -28,9 +29,9 @@ dtrain  <- lgb.Dataset( data= data.matrix(  dataset[ , campos_buenos, with=FALSE
 #genero el modelo con los parametros por default
 modelo  <- lgb.train( data= dtrain,
                       param= list( objective=        "binary",
-                                   num_iterations=     50,  #40
-                                   num_leaves=         64,  #64
-                                   min_data_in_leaf= 3000 ) #3000
+                                   num_iterations=     40,  #40
+                                   num_leaves=         80,  #64
+                                   min_data_in_leaf= 5000 ) #3000
                     )
 
 #aplico el modelo a los datos sin clase

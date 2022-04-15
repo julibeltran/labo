@@ -6,7 +6,9 @@ library("data.table")
 library("rpart")
 library("rpart.plot")
 
-setwd( "D:\\gdrive\\Austral2022R\\" )  #establezco la carpeta donde voy a trabajar
+#setwd( "D:\\gdrive\\Austral2022R\\" )  #establezco la carpeta donde voy a trabajar
+setwd("C:\\Users\\Julieta\\OneDrive\\MCD\\segundo_año\\Laboratorio_de_Implementacion_I")   #Establezco el Working Directory
+
 #cargo el dataset
 dataset  <- fread( "./datasets/paquete_premium_202011.csv")
 
@@ -33,7 +35,7 @@ modelo  <- rpart(formula= "clase_ternaria ~ . ",
 #creo la carepta donde guardo el resultado
 dir.create( "./labo/exp/",  showWarnings = FALSE ) 
 dir.create( "./labo/exp/ST5210/", showWarnings = FALSE )
-setwd("D:\\gdrive\\Austral2022R\\labo\\exp\\ST5210\\")   #Establezco el Working Directory DEL EXPERIMENTO
+setwd("C:\\Users\\Julieta\\OneDrive\\MCD\\segundo_año\\Laboratorio_de_Implementacion_I\\labo\\exp\\ST5210\\")   #Establezco el Working Directory DEL EXPERIMENTO
 
 #genero la imagen del arbol
 pdf( file= "arbol_canaritos.pdf", width=20, height=4)
