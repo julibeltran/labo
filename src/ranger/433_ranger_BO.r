@@ -30,7 +30,7 @@ hs  <- makeParamSet(
           makeIntegerParam("mtry" ,             lower=    2L, upper=   50L))
 
 
-ksemilla_azar  <- 14293  #Aqui poner la propia semilla
+ksemilla_azar  <- 140293  #Aqui poner la propia semilla
 
 #------------------------------------------------------------------------------
 #graba a un archivo los componentes de lista

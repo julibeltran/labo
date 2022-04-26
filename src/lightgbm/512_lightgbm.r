@@ -29,9 +29,9 @@ dtrain  <- lgb.Dataset( data= data.matrix(  dataset[ , campos_buenos, with=FALSE
 #genero el modelo con los parametros por default
 modelo  <- lgb.train( data= dtrain,
                       param= list( objective=        "binary",
-                                   num_iterations=     40,  #40
-                                   num_leaves=         80,  #64
-                                   min_data_in_leaf= 5000 ) #3000
+                                   num_iterations=     566,  #40
+                                   num_leaves=         1011,  #64
+                                   min_data_in_leaf= 3726 ) #3000
                     )
 
 #aplico el modelo a los datos sin clase

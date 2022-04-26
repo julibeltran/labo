@@ -7,7 +7,7 @@ gc()             #garbage collection
 
 require("data.table")
 require("rlist")
-
+install.packages("xgboost")
 require("xgboost")
 
 
@@ -81,7 +81,7 @@ EstimarGanancia_xgboost  <- function( x )
 
   param_completo  <- c( param_basicos, x )
 
-  set.seed( 999983 )
+  set.seed( 140293 )
   modelocv  <- xgb.cv( objective= "binary:logistic",
                        data= dtrain,
                        feval= fganancia_logistic_xgboost,
@@ -119,8 +119,8 @@ EstimarGanancia_xgboost  <- function( x )
 #Aqui empieza el programa
 
 #Aqui se debe poner la carpeta de la computadora local
-setwd("D:\\gdrive\\Austral2022R\\")   #Establezco el Working Directory
-
+#setwd("D:\\gdrive\\Austral2022R\\")   #Establezco el Working Directory
+setwd("C:\\Users\\Julieta\\OneDrive\\MCD\\segundo_año\\Laboratorio_de_Implementacion_I")   #Establezco el Working Directory
 #cargo el dataset donde voy a entrenar el modelo
 dataset  <- fread("./datasets/paquete_premium_202011.csv")
 
@@ -128,7 +128,7 @@ dataset  <- fread("./datasets/paquete_premium_202011.csv")
 # HT  representa  Hiperparameter Tuning
 dir.create( "./labo/exp/",  showWarnings = FALSE ) 
 dir.create( "./labo/exp/HT5620/", showWarnings = FALSE )
-setwd("D:\\gdrive\\Austral2022R\\labo\\exp\\HT5620\\")   #Establezco el Working Directory DEL EXPERIMENTO
+setwd("C:\\Users\\Julieta\\OneDrive\\MCD\\segundo_año\\Laboratorio_de_Implementacion_I\\labo\\exp\\HT5620\\")   #Establezco el Working Directory DEL EXPERIMENTO
 
 
 #en estos archivos quedan los resultados
