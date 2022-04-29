@@ -32,10 +32,10 @@ dapply  <- na.roughfix( dapply )  #tambien imputo los nulos en los datos donde v
 param  <- list( "num.trees"=     2456,  #cantidad de arboles
                 "mtry"=             8,  #cantidad de variables que evalua para hacer un split  sqrt(ncol(dtrain))
                 "min.node.size"=  500,  #tamaño minimo de las hojas
-                "max.depth"=       14   # 0 significa profundidad infinita
+                "max.depth"=       14   #0 significa profundidad infinita
               )
 
-set.seed(140293) #Establezco la semilla aleatoria
+set.seed(678923) #Establezco la semilla aleatoria
 
 #para preparar la posibilidad de asignar pesos a las clases
 #la teoria de  Maite San Martin
@@ -64,7 +64,7 @@ entrega  <- as.data.table( list( "numero_de_cliente"= dapply[  , numero_de_clien
 # HT  representa  Hiperparameter Tuning
 dir.create( "./labo/exp/",  showWarnings = FALSE ) 
 dir.create( "./labo/exp/KA2411/", showWarnings = FALSE )
-archivo_salida  <- "./labo/exp/KA2411/KA_411_001.csv"
+archivo_salida  <- "./labo/exp/KA2411/KA_411_002.csv"
 
 #genero el archivo para Kaggle
 fwrite( entrega, 

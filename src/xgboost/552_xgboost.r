@@ -7,8 +7,11 @@ gc()             #garbage collection
 require("data.table")
 require("xgboost")
 
+NROUNDS <- 40
+PROBCORTE <- 0.0160870076191375
 #Aqui se debe poner la carpeta de la computadora local
-setwd("D:\\gdrive\\Austral2022R\\")   #Establezco el Working Directory
+#setwd("D:\\gdrive\\Austral2022R\\")   #Establezco el Working Directory
+setwd("C:\\Users\\Julieta\\OneDrive\\MCD\\segundo_año\\Laboratorio_de_Implementacion_I")   #Establezco el Working Directory
 
 #cargo el dataset donde voy a entrenar
 dataset  <- fread("./datasets/paquete_premium_202011.csv", stringsAsFactors= TRUE)
@@ -30,7 +33,7 @@ modelo  <- xgb.train( data= dtrain,
                       param= list( objective=       "binary:logistic",
                                    max_depth=           4,
                                    min_child_weight=   20 ),
-                      nrounds= 40
+                      nrounds= NROUNDS
                     )
 
 #aplico el modelo a los datos sin clase
@@ -43,11 +46,19 @@ prediccion  <- predict( modelo,
 
 #Genero la entrega para Kaggle
 entrega  <- as.data.table( list( "numero_de_cliente"= dapply[  , numero_de_cliente],
-                                 "Predicted"= prediccion > 1/60)  ) #genero la salida
+                                 "Predicted"= prediccion > PROBCORTE)  ) #genero la salida
+
+# entrega  <- as.data.table( list( "numero_de_cliente"= dapply[  , numero_de_cliente],
+#                                  "Predicted"= prediccion)  ) #genero la salida
+# 
+# setorder(entrega, -Predicted) #ordeno por probabilidad
+# 
+# entrega[,Predicted:= 0]
+# entrega[1:14000, Predicted:= 1]     
 
 dir.create( "./labo/exp/",  showWarnings = FALSE ) 
 dir.create( "./labo/exp/KA2552/", showWarnings = FALSE )
-archivo_salida  <- "./labo/exp/KA2552/KA_552_001.csv"
+archivo_salida  <- "./labo/exp/KA2552/KA_552_003.csv"
 
 #genero el archivo para Kaggle
 fwrite( entrega, 

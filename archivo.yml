@@ -1,0 +1,9 @@
+ambiente:
+	CARPETA_TRABAJO: "C:\\Users\\Julieta\\OneDrive\\MCD\\segundo_año\\Laboratorio_de_Implementacion_I"
+
+problema:
+	POSITIVOS <- c("BAJA+1","BAJA+2")
+
+xgboost:
+	NROUNDS <- 40
+	MIN_CHILD_WEIGHT <- 20
