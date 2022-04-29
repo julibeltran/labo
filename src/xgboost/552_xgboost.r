@@ -6,19 +6,26 @@ gc()             #garbage collection
 
 require("data.table")
 require("xgboost")
+require("yaml")
 
-NROUNDS <- 40
-PROBCORTE <- 0.0160870076191375
+PARAM <- real_yaml(archivo)
+
+# PARAM$ambiente$CARPETA_TRABAJO <- "C:\\Users\\Julieta\\OneDrive\\MCD\\segundo_año\\Laboratorio_de_Implementacion_I"
+# PARAM$problema$POSITIVOS <- c("BAJA+1","BAJA+2")
+# PARAM$kaggle$PROBCORTE <- 0.0160870076191375
+# 
+# PARAM$xgboost$NROUNDS <- 40
+# PARAM$xgboost$MIN_CHILD_WEIGHT <- 20
+
 #Aqui se debe poner la carpeta de la computadora local
-#setwd("D:\\gdrive\\Austral2022R\\")   #Establezco el Working Directory
-setwd("C:\\Users\\Julieta\\OneDrive\\MCD\\segundo_año\\Laboratorio_de_Implementacion_I")   #Establezco el Working Directory
+setwd(CARPETA_TRABAJO)   #Establezco el Working Directory
 
 #cargo el dataset donde voy a entrenar
 dataset  <- fread("./datasets/paquete_premium_202011.csv", stringsAsFactors= TRUE)
 
 
 #paso la clase a binaria que tome valores {0,1}  enteros
-dataset[ , clase01 := ifelse( clase_ternaria=="BAJA+2", 1L, 0L) ]
+dataset[ , clase01 := ifelse( clase_ternaria %in% POSITIVOS, 1L, 0L) ]
 
 #los campos que se van a utilizar
 campos_buenos  <- setdiff( colnames(dataset), c("clase_ternaria","clase01") )
@@ -32,7 +39,7 @@ dtrain  <- xgb.DMatrix( data= data.matrix(  dataset[ , campos_buenos, with=FALSE
 modelo  <- xgb.train( data= dtrain,
                       param= list( objective=       "binary:logistic",
                                    max_depth=           4,
-                                   min_child_weight=   20 ),
+                                   min_child_weight=    MIN_CHILD_WEIGHT),
                       nrounds= NROUNDS
                     )
 
