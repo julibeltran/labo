@@ -44,12 +44,16 @@ prediccion  <- predict( modelo,
 
 
 #Genero la entrega para Kaggle
+# entrega  <- as.data.table( list( "numero_de_cliente"= dapply[  , numero_de_cliente],
+#                                  "Predicted"= prediccion > 0.016896266)  ) #genero la salida
+
 entrega  <- as.data.table( list( "numero_de_cliente"= dapply[  , numero_de_cliente],
-                                 "Predicted"= prediccion > 0.016896266)  ) #genero la salida
+                                 "Predicted"= prediccion)  ) #genero la salida
+
 
 dir.create( "./labo/exp/",  showWarnings = FALSE ) 
 dir.create( "./labo/exp/KA2512/", showWarnings = FALSE )
-archivo_salida  <- "./labo/exp/KA2512/KA_512_003.csv"
+archivo_salida  <- "./labo/exp/KA2512/KA_512_004.csv"
 
 #genero el archivo para Kaggle
 fwrite( entrega, 
@@ -59,7 +63,7 @@ fwrite( entrega,
 
 #ahora imprimo la importancia de variables
 tb_importancia  <-  as.data.table( lgb.importance(modelo) ) 
-archivo_importancia  <- "./labo/exp/KA2512/512_importancia_003.txt"
+archivo_importancia  <- "./labo/exp/KA2512/512_importancia_004.txt"
 
 fwrite( tb_importancia, 
         file= archivo_importancia, 
