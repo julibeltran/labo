@@ -158,8 +158,8 @@ dir.create( "./labo/exp/HT4330/", showWarnings = FALSE )
 setwd("C:\\Users\\Julieta\\OneDrive\\MCD\\segundo_año\\Laboratorio_de_Implementacion_I\\labo\\exp\\HT4330\\")   #Establezco el Working Directory DEL EXPERIMENTO
 
 #en estos archivos quedan los resultados
-kbayesiana  <- "HT433.RDATA"
-klog        <- "HT433.txt"
+kbayesiana  <- "HT433_v2.RDATA"
+klog        <- "HT433_v2.txt"
 
 
 GLOBAL_iteracion  <- 0   #inicializo la variable global
@@ -174,7 +174,7 @@ if( file.exists(klog) )
 
 
 #paso a trabajar con clase binaria POS={BAJA+2}   NEG={BAJA+1, CONTINUA}
-dataset[ , clase_binaria := as.factor(ifelse( clase_ternaria=="BAJA+2", "POS", "NEG" )) ]
+dataset[ , clase_binaria := as.factor(ifelse( clase_ternaria %in% c("BAJA+2","BAJA+1"), "POS", "NEG" )) ]
 dataset[ , clase_ternaria := NULL ]  #elimino la clase_ternaria, ya no la necesito
 
 

@@ -150,8 +150,8 @@ setwd("C:\\Users\\Julieta\\OneDrive\\MCD\\segundo_año\\Laboratorio_de_Implement
 
 
 #en estos archivos quedan los resultados
-kbayesiana  <- "HT563.RDATA"
-klog        <- "HT563.txt"
+kbayesiana  <- "HT563_v2.RDATA"
+klog        <- "HT563_v2.txt"
 
 
 GLOBAL_iteracion  <- 0   #inicializo la variable global
@@ -166,7 +166,7 @@ if( file.exists(klog) )
 
 
 #paso la clase a binaria que tome valores {0,1}  enteros
-dataset[ , clase01 := ifelse( clase_ternaria=="BAJA+2", 1L, 0L) ]
+dataset[ , clase01 := ifelse( clase_ternaria %in% c("BAJA+2","BAJA+1"), 1L, 0L) ]
 
 
 #los campos que se van a utilizar
