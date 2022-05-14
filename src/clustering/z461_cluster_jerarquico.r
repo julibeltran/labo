@@ -100,8 +100,21 @@ fwrite( dataset,
 #esto hay que hacerlo para cada variable,
 #  y ver cuales son las que mas diferencian a los clusters
 #esta parte conviene hacerla desde la PC local, sobre  cluster_de_bajas.txt
+cluster1 <- dataset %>% filter(cluster2 == 1)
+cluster2 <- dataset %>% filter(cluster2 == 2)
+cluster3 <- dataset %>% filter(cluster2 == 3)
+cluster4 <- dataset %>% filter(cluster2 == 4)
+cluster5 <- dataset %>% filter(cluster2 == 5)
+cluster6 <- dataset %>% filter(cluster2 == 6)
+cluster7 <- dataset %>% filter(cluster2 == 7)
 
-dataset[  , mean(ctrx_quarter),  cluster2 ]  #media de la variable  ctrx_quarter
+mean_ctrx <- dataset %>% 
+  group_by(cluster2) %>%
+  summarise(media = mean(ctrx_quarter),
+            media_tarjta = mean(mtarjeta_visa_consumo)
+              )
+
+##dataset[  , mean(ctrx_quarter),  cluster2 ]  #media de la variable  ctrx_quarter
 dataset[  , mean(mtarjeta_visa_consumo),  cluster2 ]
 dataset[  , mean(mcuentas_saldo),  cluster2 ]
 dataset[  , mean(chomebanking_trx),  cluster2 ]
